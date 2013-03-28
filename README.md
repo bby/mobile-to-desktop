@@ -1,7 +1,7 @@
 Mobile to Desktop
 ==========
 
-Quick hacked together use of socket.io to transfer device data (in this case orientation) between said device and browser. The a bit over blown with the inclusion of backbone, require and grunt but if it goes further they might be useful.
+Quick hacked together use of socket.io to transfer device data (in this case orientation) between said device and browser. It's a bit over blown with the inclusion of backbone, require and grunt but if it goes further they might be useful.
 
 Install
 -----
