@@ -11,7 +11,7 @@ app = connect()
   ;
 
 server = http.createServer(app).listen(8080, function() {
-  console.log('Running on http://192.168.0.5:8080');
+  console.log('Running on http://localhost:8080');
 });
 
 var io = require('socket.io').listen(server);
