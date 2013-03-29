@@ -21,3 +21,11 @@ npm start
 ```
 
 You should now be up and running at http://localhost:8080 You need to visit the site on your mobile at the same address as you have connected to in your browser. Since you can't visit localhost on your mobile this means you need to find out your IP address of your computer and use that instead (dont forget the port number).
+
+TODO
+-----
+
+Aside from less hackery balls;
+
+- Handle disconnections and timeouts
+

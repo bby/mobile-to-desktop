@@ -6,7 +6,7 @@ function(template, AddListView, EditListView) {
   var AppView = Backbone.View.extend({
     id: 'main',
     tagName: 'div',
-    className: 'container-fluid',
+    className: 'container',
     el: '#mtd-app',
     template: _.template(template),
 
@@ -49,14 +49,6 @@ function(template, AddListView, EditListView) {
       container = document.createElement( 'div' );
       document.body.appendChild( container );
 
-      var info = document.createElement( 'div' );
-      info.style.position = 'absolute';
-      info.style.top = '10px';
-      info.style.width = '100%';
-      info.style.textAlign = 'center';
-      info.innerHTML = 'Visit this page on your mobile';
-      container.appendChild( info );
-
       camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
       camera.position.y = 150;
       camera.position.z = 500;
@@ -98,25 +90,66 @@ function(template, AddListView, EditListView) {
 
       //**************** eo: 3D Setup ****************//
 
+      var debug = document.getElementById("debug");
+      var status = document.getElementById("status");
+      var mobile_status = document.getElementById("mobile-status");
+      //
       var socket = io.connect('http://192.168.0.5:8080');
+      var pair_number = Math.floor(Math.random()*1000);
+      var pair_button = document.getElementsByTagName("button")[0];
+      var pair_display = document.getElementById('pair-number');
+      
+      status.innerHTML = 'Visit this page on your mobile'
+      pair_display.innerHTML = pair_number;
+      
+      if(!isiPhone && !isAndroid && !isiPad) {
+        desktop_ui = document.getElementById("desktop");
+        desktop_ui.style.display = "block";
+        socket.emit('register', { pair: pair_number });
+      }
+
+      pair_button.onclick = function() {
+        pair_response_field = document.getElementById("pair_response");
+        pair_response_value = pair_response_field.value;
+        socket.emit('pair', { pair: pair_response_value });
+      }
+
+      socket.on('successful', function (data) {
+        mobile_status.innerHTML = "Paired"
+        mobile_status.style.color = "green";
+      });
+
+      socket.on('unsuccessful', function (data) {
+        mobile_status.innerHTML = "Wrong number"
+        mobile_status.style.color = "red";
+      });
+
+      socket.on('disconnected', function (data) {
+        mobile_status.innerHTML = ""
+      });
+
+
       socket.on('mobile_data', function (data) {
+        status.innerHTML = "Mobile Connected";
+        status.style.color = "green";
 
-      info.innerHTML = "Mobile Connected";
+        var xData = Math.round( parseFloat( data.accelerometer.x ) );
+        var yData = Math.round( parseFloat( data.accelerometer.y ) );
 
-      var xData = Math.round( parseFloat( data.accelerometer.x ) );
-      var yData = Math.round( parseFloat( data.accelerometer.y ) );
+        targetRotation = xData * 0.05;
+        plane.rotation.x = cube.rotation.x += ( targetRotation - cube.rotation.x);
 
-          targetRotation = xData * 0.05;
-          plane.rotation.x = cube.rotation.x += ( targetRotation - cube.rotation.x);
+        targetRotation = yData * 0.05;
+        plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y);
 
-          targetRotation = yData * 0.05;
-          plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y);
-
-          renderer.render( scene, camera );
-
+        renderer.render( scene, camera );
       });
 
       if(isiPhone || isAndroid || isiPad) {
+        var mobile_ui = document.getElementById("mobile");
+        mobile_ui.style.display = "block";
+        pair_display.style.display = "none";
+
         if (window.DeviceOrientationEvent) {
             window.addEventListener("deviceorientation", function () {
                 tilt([event.beta, event.gamma]);
@@ -130,10 +163,9 @@ function(template, AddListView, EditListView) {
                 tilt([orientation.x * 50, orientation.y * 50]);
             }, true);
         }
+
         setInterval(function() {
-            debug = document.getElementById("debug");
-            debug.innerHTML = "x: "+x+"y: "+y;
-            socket.emit('mobile', { x: x, y: y});
+            socket.emit('mobile', { x: x, y: y, pair: pair_response_value});
         }, 100);
       }
       return this;

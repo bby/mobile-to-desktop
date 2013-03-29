@@ -1,8 +1,15 @@
-<div class="row-fluid">
-  <div class="span2 main-left-col" id="lists-panel">
-    <ul class="left-nav"></ul>
+<div id="debug"></div>
+<div id="desktop" style="display: none;">
+  <div class="pair-me">
+    <p class="lead" id="status"></p>
+    <h3 class="pair-me-heading">Enter this pair number</h3>
+    <h2 id="pair-number"></h2>
   </div>
-  <div class="main-right-col">
-    <div id="debug"></div>
-  </div>
+</div>
+<div id="mobile" style="display: none;">
+  <div class="pair-me">
+  <p class="lead" id="mobile-status"></p>
+  <h2 class="pair-me-heading">Pair device</h2>
+  <input type="text" class="input-block-level" placeholder="Pair number" name="pair_response" id="pair_response" />
+  <button class="btn btn-large btn-primary">Go</button>
 </div>
