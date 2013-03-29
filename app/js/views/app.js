@@ -19,6 +19,9 @@ function(template, AddListView, EditListView) {
     render: function() {
       this.$el.html(this.template());
       var isiPhone = navigator.userAgent.match(/iPhone/i) != null;
+      var isiPad = navigator.userAgent.match(/iPad/i) != null;
+      var isAndroid = navigator.userAgent.match(/Android/i) != null;
+
       var x,y;
       var tilt = function(dataArr) {
           x = dataArr[0];
@@ -113,7 +116,7 @@ function(template, AddListView, EditListView) {
 
       });
 
-      if(isiPhone) {
+      if(isiPhone || isAndroid || isiPad) {
         if (window.DeviceOrientationEvent) {
             window.addEventListener("deviceorientation", function () {
                 tilt([event.beta, event.gamma]);
