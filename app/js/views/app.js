@@ -115,17 +115,20 @@ function(template, AddListView, EditListView) {
       }
 
       socket.on('successful', function (data) {
-        mobile_status.innerHTML = "Paired"
+        mobile_status.innerHTML = "Paired";
         mobile_status.style.color = "green";
       });
 
       socket.on('unsuccessful', function (data) {
-        mobile_status.innerHTML = "Wrong number"
+        mobile_status.innerHTML = "Wrong number";
         mobile_status.style.color = "red";
       });
 
       socket.on('disconnected', function (data) {
-        mobile_status.innerHTML = ""
+        status.innerHTML = "Disconnected";
+        status.style.color = "red";
+        mobile_status.innerHTML = "Disconnected";
+        mobile_status.style.color = "red";
       });
 
 
