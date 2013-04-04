@@ -35,5 +35,5 @@ TODO
 
 Aside from less hackery balls;
 
-- Handle disconnections and timeouts
+- Make it less hackery balls
 
