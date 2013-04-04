@@ -22,9 +22,9 @@ npm start
 
 You should now be up and running at http://localhost:8080 You need to visit the site on your mobile at the same address as you have connected to in your browser. Since you can't visit localhost on your mobile this means you need to find out your IP address of your computer (e.g. ifconfig in your terminal). 
 
-```
-
 Once you have this you will need change the client connection;
+
+```
 on line 97 of app/js/views/app.js 
 ```
 
