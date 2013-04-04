@@ -28,7 +28,7 @@ Once you have this you will need change the client connection;
 on line 97 of app/js/views/app.js 
 ```
 
-The point browser and mobile to the same ip address and port
+Then point your browser and mobile to the same ip address and port
 
 TODO
 -----
