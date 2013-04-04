@@ -86,15 +86,15 @@ function(template, AddListView, EditListView) {
 
       container.appendChild( renderer.domElement );
 
-      
-
       //**************** eo: 3D Setup ****************//
+
+
 
       var debug = document.getElementById("debug");
       var status = document.getElementById("status");
       var mobile_status = document.getElementById("mobile-status");
       //
-      var socket = io.connect('http://192.168.0.5:8080');
+      var socket = io.connect('http://192.168.0.33:8080');
       var pair_number = Math.floor(Math.random()*1000);
       var pair_button = document.getElementsByTagName("button")[0];
       var pair_display = document.getElementById('pair-number');

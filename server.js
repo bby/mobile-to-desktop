@@ -18,7 +18,7 @@ var users = [], clients = [], pairings = [];
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
-
+    console.log('connected');
     socket.on('register', function(data) {
       users[data.pair] = socket.id;
       clients[socket.id] = socket;
